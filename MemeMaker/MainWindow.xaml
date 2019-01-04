@@ -1,0 +1,69 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication1"
+        mc:Ignorable="d"
+        Title="MemeMaker" Height="725.6" Width="800" Icon="24.png" >
+
+    <Window.Resources>
+        <local:ConversorBorde x:Key="conversor"></local:ConversorBorde>
+
+        <Style TargetType="TextBlock" x:Key="Meme">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontFamily" Value="Impact"></Setter>
+            <Setter Property="FontSize" Value="36"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="TextAlignment" Value="Center"></Setter>
+            <Setter Property="LineHeight" Value="6"></Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <StackPanel>
+                <Grid Margin="5,10,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0">Texto superior</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">Texto inferior</TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,10,0,0">Alto</TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,10,0,0">Ancho</TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,10,0,0">Imagen</TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,10,0,0">Borde</TextBlock>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="SuperiorTextBox">Texto superior</TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="InferiorTextBox" Margin="0,10,0,0">Texto inferior</TextBox>
+                    <Slider Grid.Row="2" Grid.Column="1" x:Name="AltoSlider" Margin="0,10,0,0" Minimum="100" Maximum="1000" Value="500"></Slider>
+                    <Slider Grid.Row="3" Grid.Column="1" x:Name="AnchoSlider" Margin="0,10,0,0" Minimum="100" Maximum="1000" Value="500"></Slider>
+                    <Button Grid.Row="4" Grid.Column="1" x:Name="SeleccionarButton" Click="SeleccionarButton_Click"  Margin="0,10,0,0" Width="100" HorizontalAlignment="Left">Seleccionar</Button>
+                    <CheckBox Grid.Row="5" Grid.Column="1" x:Name="BordeCheckBox" Margin="0,10,0,0" IsChecked="True"></CheckBox>
+                </Grid>
+            </StackPanel>
+            <Border BorderBrush="Black" Height="{Binding ElementName=AltoSlider,Path=Value}" Width="{Binding ElementName=AnchoSlider,Path=Value}" BorderThickness="{Binding ElementName=BordeCheckBox,Path=IsChecked,Converter={StaticResource conversor}}">
+                <DockPanel x:Name="MemeDockPanel"  LastChildFill="False" Background="#FFF3D2D2">
+                    <TextBlock Text="{Binding ElementName=SuperiorTextBox,Path=Text}" Style="{StaticResource Meme}" DockPanel.Dock="Top" Margin="0,-5,0,0"></TextBlock>
+                    <TextBlock Text="{Binding ElementName=InferiorTextBox,Path=Text}" Style="{StaticResource Meme}" DockPanel.Dock="Bottom" Margin="0,-5,0,0"></TextBlock>
+                </DockPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Window>
